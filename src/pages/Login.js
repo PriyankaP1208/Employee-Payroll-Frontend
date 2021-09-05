@@ -1,5 +1,6 @@
 import React from 'react';
-import {Avatar, Button, Grid, Paper, TextField, Typography, Link} from '@material-ui/core';
+import {Link} from 'react-router-dom';
+import {Avatar, Button, Grid, Paper, TextField, Typography} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const Login=()=>{
@@ -12,7 +13,7 @@ const Login=()=>{
             <Paper elevation={10} style={paperstyle}>
                 <Grid align='center'>
                     <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
-                    <h2>Sign In</h2>
+                <h2>Sign In</h2>
                 </Grid>
                 <TextField label="Email" placeholder="enter emailid" fullWidth required/>
                 <TextField label="Password" placeholder="enter password" type='password' fullWidth required/>
@@ -20,7 +21,7 @@ const Login=()=>{
                 
                 <Typography>
                     Do you have an account?
-                    <Link href='#'> Create Account</Link>
+                    <Link to='/register'> Create Account</Link>
                 </Typography>
             </Paper>
         </Grid>
