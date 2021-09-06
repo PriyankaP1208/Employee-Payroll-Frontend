@@ -4,7 +4,7 @@ import {Avatar, Grid, Paper, Typography, TextField, Button} from '@material-ui/c
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 
 const SignUp=()=>{
-    const paperstyle = {padding:'30px 20px', width:300, margin:'100px auto'}
+    const paperstyle = {padding:'30px 20px', width:300, margin:'70px auto'}
     const avatarStyle= {backgroundColor:'#99db49'}
     const headerStyle = {margin:0}
     const btnStyle = {margin:'20px 0'}
@@ -22,6 +22,7 @@ const SignUp=()=>{
                     <TextField fullWidth label='Last Name'/>
                     <TextField fullWidth label='Email Id'/>
                     <TextField fullWidth label='Password'/>
+                    <TextField fullWidth label='Confirm Password'/>
                     <Button style={btnStyle} type='submit' color='primary' variant='contained' fullWidth>Sign Up</Button>
                 </form>
                     <Typography>

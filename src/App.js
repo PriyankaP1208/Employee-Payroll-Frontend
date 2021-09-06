@@ -6,7 +6,7 @@ function App() {
   return (
     <BrowserRouter>
     <Switch>
-      <Route exact path='/login'>
+      <Route path='/login'>
         <LogIn/>
       </Route>
       <Route exact path='/register'>
