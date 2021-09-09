@@ -4,12 +4,9 @@ import {Avatar, Button, Grid, Paper, TextField, Typography} from '@material-ui/c
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import '../scss/login.scss';
 
 const Login=()=>{
-    const paperstyle = {padding:'30px 20px', height:'50vh', width:300, margin:'100px auto'};
-    const avatarStyle={backgroundColor:'#99db49'};
-    const btnStyle = {margin:'20px 0'};
-    
     const initialValues={
         email:'',
         password:''
@@ -26,9 +23,9 @@ const Login=()=>{
 
     return(
         <Grid >
-            <Paper elevation={10} style={paperstyle}>
+            <Paper elevation={10} className='paperStyle'>
                 <Grid align='center'>
-                    <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
+                    <Avatar className='avatarStyle'><LockOutlinedIcon/></Avatar>
                     <h2>Sign In</h2>
                 </Grid>
 
@@ -41,7 +38,7 @@ const Login=()=>{
                             <Field as={TextField} label="Password" name="password" 
                                 placeholder="enter password" type='password' fullWidth required
                                 helperText={<ErrorMessage name="password"/>}/>
-                            <Button style={btnStyle} type='submit' color='primary' variant='contained' fullWidth>Sign In</Button>
+                            <Button className='btnStyle' type='submit' color='primary' variant='contained' fullWidth>Sign In</Button>
                             
                             <Typography>
                                 Do you have an account?
