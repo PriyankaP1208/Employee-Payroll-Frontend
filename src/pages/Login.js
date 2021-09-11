@@ -14,7 +14,7 @@ const Login=()=>{
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().email('Please enter valid email id').required('Required'),
-        password: Yup.string().min(8, 'Enter valid password')
+        password: Yup.string().min(8, 'Password must be 8 characters long')
     });
 
     const onSubmit=(values)=>{
@@ -34,10 +34,10 @@ const Login=()=>{
                         <Form>
                             <Field as={TextField} label="Email" name="email" 
                                 placeholder="enter emailid" fullWidth required 
-                                helperText={<ErrorMessage name="email"/>}/>
+                                helperText={<ErrorMessage name="email">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Field as={TextField} label="Password" name="password" 
                                 placeholder="enter password" type='password' fullWidth required
-                                helperText={<ErrorMessage name="password"/>}/>
+                                helperText={<ErrorMessage name="password">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Button className='btnStyle' type='submit' color='primary' variant='contained' fullWidth>Sign In</Button>
                             
                             <Typography>

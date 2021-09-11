@@ -20,10 +20,10 @@ const SignUp=()=>{
     };
 
     const validationSchema = Yup.object().shape({
-        firstName: Yup.string().min(2, 'Please enter valid first name').required('Required'),
-        lastName: Yup.string().min(3, 'Please enter valid first name').required('Required'),
+        firstName: Yup.string().min(2, 'Name is too short!').required('Required'),
+        lastName: Yup.string().min(3, 'Name is too short!').required('Required'),
         email: Yup.string().email('Please enter valid email id').required('Required'),
-        password: Yup.string().min(8, 'Enter valid password'),
+        password: Yup.string().min(8, 'Password must be 8 characters long'),
         confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Password not match').required('Required')
     });
 
@@ -42,16 +42,16 @@ const SignUp=()=>{
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                     {(props)=>( 
                         <Form>
-                            <Field as={TextField} name='firstName' 
-                                fullWidth label='First Name' helperText={<ErrorMessage name="firstName"/>}/>
-                            <Field as={TextField} name='lastName' 
-                                fullWidth label='Last Name' helperText={<ErrorMessage name="lastName"/>}/>
-                            <Field as={TextField} name='email' 
-                                fullWidth label='Email Id' helperText={<ErrorMessage name="email"/>}/>
-                            <Field as={TextField} name='password' type='password'
-                                fullWidth label='Password' helperText={<ErrorMessage name="password"/>}/>
-                            <Field as={TextField} name='confirmPassword' type='password' 
-                                fullWidth label='Confirm Password' helperText={<ErrorMessage name="confirmPassword"/>}/>
+                            <Field as={TextField} name='firstName' fullWidth label='First Name' 
+                                helperText={<ErrorMessage name="firstName">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
+                            <Field as={TextField} name='lastName' fullWidth label='Last Name' 
+                                helperText={<ErrorMessage name="lastName">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
+                            <Field as={TextField} name='email' fullWidth label='Email Id' 
+                                helperText={<ErrorMessage name="email">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
+                            <Field as={TextField} name='password' type='password' fullWidth label='Password' 
+                                helperText={<ErrorMessage name="password">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
+                            <Field as={TextField} name='confirmPassword' type='password' fullWidth label='Confirm Password' 
+                                helperText={<ErrorMessage name="confirmPassword">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Button style={btnStyle} type='submit' color='primary' variant='contained' fullWidth>Sign Up</Button>
                 
                             <Typography>
