@@ -4,6 +4,8 @@ import {Avatar, Grid, Paper, Typography, TextField, Button} from '@material-ui/c
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import User from '../services/user';
+const userObject = new User();
 
 const SignUp=()=>{
     const paperstyle = {padding:'30px 20px', width:300, margin:'70px auto'}
@@ -14,22 +16,36 @@ const SignUp=()=>{
     const initialValues={
         firstName:'',
         lastName:'',
-        email:'',
-        password:'',
-        confirmPassword:''
+        emailId:'',
+        password:''
     };
 
     const validationSchema = Yup.object().shape({
         firstName: Yup.string().min(2, 'Name is too short!').required('Required'),
         lastName: Yup.string().min(3, 'Name is too short!').required('Required'),
-        email: Yup.string().email('Please enter valid email id').required('Required'),
-        password: Yup.string().min(8, 'Password must be 8 characters long'),
-        confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Password not match').required('Required')
+        emailId: Yup.string().email('Please enter valid email id').required('Required'),
+        password: Yup.string().min(8, 'Password must be 8 characters long')
     });
 
-    const onSubmit=(values)=>{
-        console.log(values)
-    }
+    const onSubmit = (values, props) => {
+        const userDetails = {
+            "firstName": values.firstName,
+            "lastName": values.lastName,
+            "emailId": values.emailId,
+            "password": values.password,
+        }
+
+        userObject.register(userDetails)    
+        .then((res) => {
+            if (res.data.success === true) {
+                alert(res.data.message);
+            } 
+        })
+        .catch((error) => {
+            alert("Registration Failed");
+        });
+        props.resetForm();
+    };
 
     return(
         <Grid >
@@ -46,13 +62,15 @@ const SignUp=()=>{
                                 helperText={<ErrorMessage name="firstName">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Field as={TextField} name='lastName' fullWidth label='Last Name' 
                                 helperText={<ErrorMessage name="lastName">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Field as={TextField} name='email' fullWidth label='Email Id' 
-                                helperText={<ErrorMessage name="email">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
+                            <Field as={TextField} name='emailId' fullWidth label='Email Id' 
+                                helperText={<ErrorMessage name="emailId">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Field as={TextField} name='password' type='password' fullWidth label='Password' 
                                 helperText={<ErrorMessage name="password">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Field as={TextField} name='confirmPassword' type='password' fullWidth label='Confirm Password' 
-                                helperText={<ErrorMessage name="confirmPassword">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Button style={btnStyle} type='submit' color='primary' variant='contained' fullWidth>Sign Up</Button>
+                            
+                            <Button fullWidth type="submit" variant="contained" color="primary" style={btnStyle}
+                                disabled={props.isSubmitting}>
+                                {props.isSubmitting ? "Loading" : "Sign Up"}
+                            </Button>
                 
                             <Typography>
                                 Do you have an account?
