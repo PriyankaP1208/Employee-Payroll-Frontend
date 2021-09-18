@@ -1,10 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, BrowserRouter} from 'react-router-dom';
 import {Avatar, Grid, Paper, Typography, TextField, Button} from '@material-ui/core';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
-import User from '../services/user';
+import '../login/login.scss'
+import User from '../../services/user';
 const userObject = new User();
 
 const SignUp=()=>{
@@ -17,14 +18,16 @@ const SignUp=()=>{
         firstName:'',
         lastName:'',
         emailId:'',
-        password:''
+        password:'',
+        confirmPassword:''
     };
 
     const validationSchema = Yup.object().shape({
         firstName: Yup.string().min(2, 'Name is too short!').required('Required'),
         lastName: Yup.string().min(3, 'Name is too short!').required('Required'),
         emailId: Yup.string().email('Please enter valid email id').required('Required'),
-        password: Yup.string().min(8, 'Password must be 8 characters long')
+        password: Yup.string().min(8, 'Password must be 8 characters long'),
+        confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Password not match').required('Required')
     });
 
     const onSubmit = (values, props) => {
@@ -42,7 +45,7 @@ const SignUp=()=>{
             } 
         })
         .catch((error) => {
-            alert("Registration Failed");
+            alert("Email id is already esist!");
         });
         props.resetForm();
     };
@@ -51,34 +54,37 @@ const SignUp=()=>{
         <Grid >
             <Paper elevation={20} style={paperstyle}>
                 <Grid align='center'>
-                    <Avatar style={avatarStyle}><AddCircleOutlineOutlinedIcon/></Avatar>
+                    <Avatar data-testid='avatar' style={avatarStyle}><AddCircleOutlineOutlinedIcon/></Avatar>
                     <h2 style={headerStyle}>Sign Up</h2>
                     <Typography variant='caption'>Please fill this form to create an account!</Typography>
                 </Grid>
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                     {(props)=>( 
-                        <Form>
-                            <Field as={TextField} name='firstName' fullWidth label='First Name' 
+                        <Form data-testid='form'>
+                            <Field as={TextField} data-testid='firstName' name='firstName' fullWidth label='First Name' 
                                 helperText={<ErrorMessage name="firstName">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Field as={TextField} name='lastName' fullWidth label='Last Name' 
+                            <Field as={TextField} data-testid='lastName' name='lastName' fullWidth label='Last Name' 
                                 helperText={<ErrorMessage name="lastName">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Field as={TextField} name='emailId' fullWidth label='Email Id' 
+                            <Field as={TextField} data-testid='email' name='emailId' fullWidth label='Email Id' 
                                 helperText={<ErrorMessage name="emailId">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Field as={TextField} name='password' type='password' fullWidth label='Password' 
+                            <Field as={TextField} data-testid='password' name='password' type='password' fullWidth label='Password' 
                                 helperText={<ErrorMessage name="password">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            
-                            <Button fullWidth type="submit" variant="contained" color="primary" style={btnStyle}
+                            <Field as={TextField} name='confirmPassword' type='password' fullWidth label='Confirm Password' 
+                                helperText={<ErrorMessage name="confirmPassword">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
+                            <Button data-testid='button' fullWidth type="submit" variant="contained" color="primary" style={btnStyle}
                                 disabled={props.isSubmitting}>
                                 {props.isSubmitting ? "Loading" : "Sign Up"}
                             </Button>
-                
-                            <Typography>
-                                Do you have an account?
-                                <Link to='/login'> Login</Link>
-                            </Typography>
-                        </Form>
+                            </Form>
                     )}
                 </Formik>
+                            <Typography>
+                                Do you have an account?
+                                <BrowserRouter>
+                                    <Link to='/login'> Login</Link>
+                                </BrowserRouter>
+                            </Typography>
+                    
             </Paper>
         </Grid>
     )
