@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { Link } from "react-router-dom";
 import { makeStyles} from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -21,163 +22,166 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Button } from '@material-ui/core';
 import {BrowserRouter as Router} from 'react-router-dom'
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+//import Grid from '@material-ui/core/Grid';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((content) => ({
     root: {
-      display: 'flex',
+        display: 'flex',
     },
     toolbar: {
-      paddingRight: 24,
+        paddingRight: 24,
     },
     toolbarIcon: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: '0 8px',
-      ...content.mixins.toolbar,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: '0 8px',
+        ...content.mixins.toolbar,
     },
     appBar: {
-      zIndex: content.zIndex.drawer + 1,
-      transition: content.transitions.create(['width', 'margin'], {
-        easing: content.transitions.easing.sharp,
-        duration: content.transitions.duration.leavingScreen,
-      }),
+        zIndex: content.zIndex.drawer + 1,
+        transition: content.transitions.create(['width', 'margin'], {
+            easing: content.transitions.easing.sharp,
+            duration: content.transitions.duration.leavingScreen,
+        }),
     },
     appBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: content.transitions.create(['width', 'margin'], {
-        easing: content.transitions.easing.sharp,
-        duration: content.transitions.duration.enteringScreen,
-      }),
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: content.transitions.create(['width', 'margin'], {
+            easing: content.transitions.easing.sharp,
+            duration: content.transitions.duration.enteringScreen,
+        }),
     },
     menuButton: {
-      marginRight: 36,
+        marginRight: 36,
     },
     menuButtonHidden: {
-      display: 'none',
+        display: 'none',
     },
     title: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     drawerPaper: {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: content.transitions.create('width', {
-        easing: content.transitions.easing.sharp,
-        duration: content.transitions.duration.enteringScreen,
-      }),
+        position: 'relative',
+        whiteSpace: 'nowrap',
+        width: drawerWidth,
+        transition: content.transitions.create('width', {
+            easing: content.transitions.easing.sharp,
+            duration: content.transitions.duration.enteringScreen,
+        }),
     },
     drawerPaperClose: {
-      overflowX: 'hidden',
-      transition: content.transitions.create('width', {
-        easing: content.transitions.easing.sharp,
-        duration: content.transitions.duration.leavingScreen,
-      }),
-      width: content.spacing(7),
-      [content.breakpoints.up('sm')]: {
-        width: content.spacing(9),
-      },
+        overflowX: 'hidden',
+        transition: content.transitions.create('width', {
+            easing: content.transitions.easing.sharp,
+            duration: content.transitions.duration.leavingScreen,
+        }),
+        width: content.spacing(7),
+        [content.breakpoints.up('sm')]: {
+            width: content.spacing(9),
+        },
     },
     appBarSpacer: content.mixins.toolbar,
     content: {
-      flexGrow: 1,
-      height: '100vh',
-      overflow: 'auto',
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
     },
     container: {
-      paddingTop: content.spacing(4),
-      paddingBottom: content.spacing(4),
+        paddingTop: content.spacing(4),
+        paddingBottom: content.spacing(4),
     },
     paper: {
-      padding: content.spacing(2),
-      display: 'flex',
-      overflow: 'auto',
-      flexDirection: 'column',
+        padding: content.spacing(2),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
     },
     fixedHeight: {
-      width:'auto',
-      height:'auto'
-    },
-  }));
+        width:'auto',
+        height:'auto'
+        },
+    }));
   
     function Dashboard() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [setOpenAdd] = React.useState(false);
     
-    const handleDrawerOpen = () => {
-      setOpen(true);
+    const handleClickOpen = () => {
+        setOpenAdd(true);
     };
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
     const handleDrawerClose = () => {
-      setOpen(false);
+        setOpen(false);
     };
     
     return (
-      <Router>
-      <div className={classes.root}>
+        <Router>
+        <div className={classes.root}>
         <CssBaseline />
         <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-          <Toolbar className={classes.toolbar}>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}>
-              <MenuIcon />
-            </IconButton>
-            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} data-testid="title">
-              Employee Payroll Application
-            </Typography>
-            <Button
-                className={classes.logoutButton} variant="outlined" color="inherit" href="/login">LOGOUT
-            </Button>
-          </Toolbar>
+            <Toolbar className={classes.toolbar}>
+                <IconButton
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    className={clsx(classes.menuButton, open && classes.menuButtonHidden)}>
+                    <MenuIcon />
+                </IconButton>
+                <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} data-testid="title">
+                    Employee Payroll Application
+                </Typography>
+                <Button
+                    className={classes.logoutButton} variant="outlined" color="inherit" href="/login">LOGOUT
+                </Button>
+            </Toolbar>
         </AppBar>
         <Drawer
-          variant="permanent"
-          classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-          }}
-          open={open}
-        >
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-          <ListItem button key="List" >
-              <ListItemIcon>{<ViewListIcon/>}</ListItemIcon>
-              <ListItemText primary="List" />
-            </ListItem>
-          <ListItem button key="Add" >
-              <ListItemIcon>{<PersonAddIcon/>}</ListItemIcon>
-              <ListItemText primary="Add" />
-            </ListItem>
-            <ListItem button key="Edit" >
-              <ListItemIcon>{<EditIcon/>}</ListItemIcon>
-              <ListItemText primary="Edit" />
-            </ListItem>
-            <ListItem button key="Delete" >
-              <ListItemIcon>{<DeleteIcon/>}</ListItemIcon>
-              <ListItemText primary="Delete" />
-            </ListItem>
-          </List>
+            variant="permanent"
+            classes={{
+                paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+            }}
+            open={open}
+            >
+            <div className={classes.toolbarIcon}>
+                <IconButton onClick={handleDrawerClose}>
+                    <ChevronLeftIcon />
+                </IconButton>
+            </div>
+            <Divider />
+            <List>
+                <ListItem button key="List" to="/dashboard/ListEmployees"
+                    component={Link} >
+                    <ListItemIcon>{<ViewListIcon/>}</ListItemIcon>
+                    <ListItemText primary="List" />
+                </ListItem>
+                <ListItem button key="Add" onClick={handleClickOpen}>
+                    <ListItemIcon>{<PersonAddIcon/>}</ListItemIcon>
+                    <ListItemText primary="Add" />
+                </ListItem>
+                <ListItem button key="Edit" >
+                    <ListItemIcon>{<EditIcon/>}</ListItemIcon>
+                    <ListItemText primary="Edit" />
+                </ListItem>
+                <ListItem button key="Delete" >
+                    <ListItemIcon>{<DeleteIcon/>}</ListItemIcon>
+                    <ListItemText primary="Delete" />
+                </ListItem>
+            </List>
         </Drawer>
-                 
-          <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container  className={classes.container}>
-            <Grid container>
-                
-            </Grid>
-          </Container>
-        </main>
+        <main className={classes.content}>
+            <div className={classes.appBarSpacer} />
+                <Container  className={classes.container}>
+                </Container>
+            </main>
       </div>
       </Router>
     );
