@@ -1,10 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { makeStyles} from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -22,7 +23,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Button } from '@material-ui/core';
 import {BrowserRouter as Router} from 'react-router-dom'
 import Container from '@material-ui/core/Container';
-//import Grid from '@material-ui/core/Grid';
+import { useHistory } from "react-router-dom";
+import Dialog from "@material-ui/core/Dialog";
+import AddEmployee from "../components/addEmployee";
+//import ListEmployee from './listEmployee'
+import Grid from '@material-ui/core/Grid';
+//import Paper from '@material-ui/core/Paper';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((content) => ({
@@ -106,83 +113,104 @@ const useStyles = makeStyles((content) => ({
     }));
   
     function Dashboard() {
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const [setOpenAdd] = React.useState(false);
-    
-    const handleClickOpen = () => {
-        setOpenAdd(true);
-    };
+        let history = useHistory();
+        const classes = useStyles();
+        const [open, setOpen] = React.useState(false);
+        const [openAdd, setOpenAdd] = React.useState(false);
+        const [setOpenList] = React.useState(false);
+        //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+        const handleClickOpen = () => {
+          setOpenAdd(true);
+        };
+        const handleClose = () => {
+          setOpenAdd(false);
+        };
+        const handleList = () => {
+          setOpenList(true);
+        };
+        const handleDrawerOpen = () => {
+          setOpen(true);
+        };
+        const handleDrawerClose = () => {
+          setOpen(false);
+        };
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
+        const handleLogout = () => {
+          localStorage.clear();
+          history.push('/login')
+        };
 
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
-    
     return (
         <Router>
         <div className={classes.root}>
-        <CssBaseline />
-        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-            <Toolbar className={classes.toolbar}>
-                <IconButton
-                    edge="start"
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={handleDrawerOpen}
-                    className={clsx(classes.menuButton, open && classes.menuButtonHidden)}>
-                    <MenuIcon />
-                </IconButton>
-                <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} data-testid="title">
-                    Employee Payroll Application
-                </Typography>
-                <Button
-                    className={classes.logoutButton} variant="outlined" color="inherit" href="/login">LOGOUT
-                </Button>
-            </Toolbar>
-        </AppBar>
-        <Drawer
-            variant="permanent"
-            classes={{
-                paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-            }}
-            open={open}
-            >
-            <div className={classes.toolbarIcon}>
-                <IconButton onClick={handleDrawerClose}>
-                    <ChevronLeftIcon />
-                </IconButton>
-            </div>
-            <Divider />
-            <List>
-                <ListItem button key="List" to="/dashboard/ListEmployees"
-                    component={Link} >
-                    <ListItemIcon>{<ViewListIcon/>}</ListItemIcon>
-                    <ListItemText primary="List" />
-                </ListItem>
-                <ListItem button key="Add" onClick={handleClickOpen}>
-                    <ListItemIcon>{<PersonAddIcon/>}</ListItemIcon>
-                    <ListItemText primary="Add" />
-                </ListItem>
-                <ListItem button key="Edit" >
-                    <ListItemIcon>{<EditIcon/>}</ListItemIcon>
-                    <ListItemText primary="Edit" />
-                </ListItem>
-                <ListItem button key="Delete" >
-                    <ListItemIcon>{<DeleteIcon/>}</ListItemIcon>
-                    <ListItemText primary="Delete" />
-                </ListItem>
-            </List>
-        </Drawer>
+      <CssBaseline />
+      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+        <Toolbar className={classes.toolbar}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}>
+            <MenuIcon />
+          </IconButton>
+          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} data-testid="title">
+            Employee Payroll Application
+          </Typography>
+          <Button
+            className={classes.logoutButton}
+            color="inherit"
+            onClick={handleLogout}
+            data-testid="logout"
+          >
+            <ExitToAppIcon/>
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+        }}
+        open={open}
+      >
+        <div className={classes.toolbarIcon}>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+        <ListItem button key="List" onClick={handleList} data-testid="list">
+            <ListItemIcon>{<ViewListIcon/>}</ListItemIcon>
+            <ListItemText primary="List" />
+          </ListItem>
+        <ListItem button key="Add" onClick={handleClickOpen} data-testid="add" >
+            <ListItemIcon>{<PersonAddIcon/>}</ListItemIcon>
+            <ListItemText primary="Add" />
+          </ListItem>
+          <ListItem button key="Edit" data-testid="edit">
+            <ListItemIcon>{<EditIcon/>}</ListItemIcon>
+            <ListItemText primary="Edit" />
+          </ListItem>
+          <ListItem button key="Delete" data-testid="delete">
+            <ListItemIcon>{<DeleteIcon/>}</ListItemIcon>
+            <ListItemText primary="Delete" />
+          </ListItem>
+        </List>
+      </Drawer>
+        <Dialog open={openAdd} onClose={handleClose} margin="auto">
+              <AddEmployee />
+        </Dialog>        
         <main className={classes.content}>
-            <div className={classes.appBarSpacer} />
-                <Container  className={classes.container}>
-                </Container>
-            </main>
-      </div>
+        <div className={classes.appBarSpacer} />
+        <Container  className={classes.container}>
+        <Grid container>
+              
+          </Grid>
+        </Container>
+      </main>
+    </div>
       </Router>
     );
   }

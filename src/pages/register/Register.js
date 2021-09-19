@@ -91,7 +91,7 @@ const SignUp=()=>{
                     </Typography>
                 </Paper>
             </Grid>
-        </Router>
+    </Router>
     )
 }
 
