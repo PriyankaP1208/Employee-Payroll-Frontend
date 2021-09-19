@@ -11,6 +11,7 @@ const user = new User();
 
 const Login=()=>{
     let history = useHistory();
+
     const initialValues={
         emailId:'',
         password:''
@@ -36,6 +37,7 @@ const Login=()=>{
             if (res.data.success === true) {
                 localStorage.setItem("token", res.data.token);
                 alert(res.data.message);
+                history.push("/dashboard");
             } 
             else {
                 alert("Invalid credentials...!");
