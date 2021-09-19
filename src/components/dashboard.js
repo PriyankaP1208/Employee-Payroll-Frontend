@@ -205,9 +205,6 @@ const useStyles = makeStyles((content) => ({
         <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container  className={classes.container}>
-        <Grid container>
-              
-          </Grid>
         </Container>
       </main>
     </div>
