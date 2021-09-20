@@ -15,9 +15,9 @@ class Employee {
     return Axios.post(`/addEmployee`, employeeDetails, header);
   };
 
-  getAllEmployees = ()=>{
-      return Axios.get(`/getEmployees`, header);
-    };
+  getEmployees = () => {
+    return Axios.get(`/getEmployees`, header);
+  };
 };
 
 export default Employee;

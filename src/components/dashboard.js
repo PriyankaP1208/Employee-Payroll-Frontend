@@ -14,7 +14,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ViewListIcon from "@material-ui/icons/ViewList";
+//import ViewListIcon from "@material-ui/icons/ViewList";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -22,7 +22,9 @@ import { Button } from '@material-ui/core';
 import {BrowserRouter as Router} from 'react-router-dom'
 import Container from '@material-ui/core/Container';
 import Dialog from "@material-ui/core/Dialog";
+import Grid from '@material-ui/core/Grid';
 import AddEmployee from "../components/addEmployee";
+import ListEmployee from '../components/employeeList';
 
 const drawerWidth = 240;
 
@@ -110,16 +112,18 @@ const useStyles = makeStyles((content) => ({
         const classes = useStyles();
         const [open, setOpen] = React.useState(false);
         const [openAdd, setOpenAdd] = React.useState(false);
-        const [setOpenList] = React.useState(false);
+        //const [openUpdate, setOpenUpdate] = React.useState(false);
+        //const [setOpenList] = React.useState(false);
         const handleClickOpen = () => {
           setOpenAdd(true);
         };
         const handleClose = () => {
           setOpenAdd(false);
+          //setOpenUpdate(false);
         };
-        const handleList = () => {
-          setOpenList(true);
-        };
+        // const handleList = () => {
+        //   setOpenList(true);
+        // };
         const handleDrawerOpen = () => {
           setOpen(true);
         };
@@ -163,10 +167,10 @@ const useStyles = makeStyles((content) => ({
             </div>
             <Divider />
                 <List>
-                    <ListItem button key="List" onClick={handleList} data-testid="list">
-                        <ListItemIcon>{<ViewListIcon/>}</ListItemIcon>
+                    {/* <ListItem button key="List" data-testid="list" to="/dashboard/ListEmployees">
+                    
                         <ListItemText primary="List" />
-                    </ListItem>
+                    </ListItem>  */}
                     <ListItem button key="Add" onClick={handleClickOpen} data-testid="add" >
                         <ListItemIcon>{<PersonAddIcon/>}</ListItemIcon>
                         <ListItemText primary="Add" />
@@ -182,11 +186,14 @@ const useStyles = makeStyles((content) => ({
                 </List>
         </Drawer>
         <Dialog open={openAdd} onClose={handleClose} margin="auto">
-              <AddEmployee />
+              <AddEmployee handleClose={handleClose}/>
         </Dialog>        
         <main className={classes.content}>
             <div className={classes.appBarSpacer} />
                 <Container  className={classes.container}>
+                    <Grid container>
+                        <ListEmployee />
+                    </Grid>
                 </Container>
         </main>
         </div>

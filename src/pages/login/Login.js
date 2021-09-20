@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import {Avatar, Button, Grid, Paper, TextField, Typography} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
+import "react-toastify/dist/ReactToastify.css";
 import * as Yup from 'yup';
 import '../login/login.scss';
 import User from '../../services/user';
@@ -36,8 +37,10 @@ const Login=()=>{
         .then((res) => {
             if (res.data.success === true) {
                 localStorage.setItem("token", res.data.token);
-                alert(res.data.message);
-                history.push("/dashboard");
+                setTimeout(() => {
+                    alert(res.data.message);
+                    history.push("/dashboard");
+                  }, 1000);
             } 
             else {
                 alert("Invalid credentials...!");
