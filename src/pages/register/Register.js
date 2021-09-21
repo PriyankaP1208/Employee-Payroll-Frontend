@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import {Avatar, Grid, Paper, Typography, TextField, Button} from '@material-ui/core';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
+import { ToastContainer, toast } from "react-toastify";
 import * as Yup from 'yup';
 import '../login/login.scss'
 import User from '../../services/user';
@@ -47,11 +48,11 @@ const SignUp=()=>{
         userObject.register(userDetails)    
         .then((res) => {
             if (res.data.success === true) {
-                alert(res.data.message);
+                toast.success(res.data.message);
             } 
         })
         .catch((error) => {
-            alert("Email id is already esist!");
+            toast.error("Invalid credentials");
         });
         props.resetForm();
     };
@@ -89,6 +90,9 @@ const SignUp=()=>{
                         Do you have an account?
                             <Link to='/login' onClick={handleLogin}> Login</Link>
                     </Typography>
+                    <ToastContainer
+                        position='top-center'
+                    />
                 </Paper>
             </Grid>
     </Router>

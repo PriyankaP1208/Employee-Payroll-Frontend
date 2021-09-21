@@ -39,13 +39,12 @@ const Login=()=>{
             if (res.data.success === true) {
                 localStorage.setItem("token", res.data.token);
                 setTimeout(() => {
-                    //toast.success(res.data.message);
                     history.push("/dashboard");
                   }, 2000);
-                  toast.success(res.data.message);
+                  toast.success("Login Successfull");
             } 
             else {
-                toast.error("Invalid credentials...!");
+                toast.error("Invalid credentials");
             }
         })
         .catch((error) => {
@@ -82,14 +81,7 @@ const Login=()=>{
                                     <Link to='/register' onClick={handleRegister}> Create Account</Link>
                                 </Typography>
                                 <ToastContainer
-                                    autoClose={2000}
-                                    hideProgressBar={false}
-                                    newestOnTop={false}
-                                    closeOnClick
-                                    rtl={false}
-                                    pauseOnFocusLoss
-                                    draggable
-                                    pauseOnHover 
+                                    position='top-center'
                                 />
                             </Form>
                         )}

@@ -2,6 +2,7 @@ import React from 'react';
 import {Avatar, Grid, Paper, TextField, Button} from '@material-ui/core';
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import {Formik, Form, Field, ErrorMessage} from 'formik';
+import { ToastContainer, toast } from "react-toastify";
 import * as Yup from 'yup';
 import Employee from '../services/employee';
 const employee = new Employee();
@@ -41,10 +42,10 @@ const AddEmployee=()=>{
         }
         employee.addEmployee(employeeDetails)    
         .then((res) => {
-            alert(res.data.message);
+            toast.success(res.data.message);
         })
         .catch((error) => {
-            alert(error);
+            toast.error(error);
         });
         props.resetForm();
     }
@@ -75,6 +76,9 @@ const AddEmployee=()=>{
                             <Button data-testid='button' fullWidth type="submit" variant="contained" color="primary" style={btnStyle}>
                                Submit
                             </Button>
+                            <ToastContainer
+                                position='top-center'
+                            />
                         </Form>
                     )}
                 </Formik>

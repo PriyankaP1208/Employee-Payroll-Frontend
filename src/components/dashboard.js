@@ -125,7 +125,7 @@ const useStyles = makeStyles((content) => ({
                 setEmployees(res.data);
               })
               .catch((error) => {
-                alert("Some error occured...!");
+                alert("Some error occured!");
               });
           };
 

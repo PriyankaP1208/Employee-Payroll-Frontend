@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import  Employee  from '../services/employee'
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { ToastContainer, toast } from "react-toastify";
 const employee = new Employee();
 
 const StyledTableCell = withStyles((theme) => ({
@@ -52,10 +53,10 @@ const ListEmployees = ({handleUpdate}) => {
         setEmployees(response.data.data);
       }
       else {
-        console.log("Some error occurred!");
+        toast.error("Some error occurred!");
       }
     }).catch((error) => {
-      console.log(error.message);
+      toast.error(error);
     });
   };
 
@@ -65,9 +66,9 @@ const ListEmployees = ({handleUpdate}) => {
 
   const deleteEmp = (empId) => {
     employee.deleteEmployee(empId).then(res => {
-        alert("Employee Deleted!!!")
+        toast.success("Employee Deleted!")
     }).catch(error => {
-        console.log(error.message);
+        toast.error(error.message);
     })
   }
 
@@ -109,6 +110,9 @@ const ListEmployees = ({handleUpdate}) => {
               </StyledTableCell>
             </StyledTableRow>
           ))}
+          <ToastContainer
+              position='top-center'
+          />
         </TableBody>
       </Table>
     </TableContainer>
