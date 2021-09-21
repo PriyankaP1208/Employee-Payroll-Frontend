@@ -8,10 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import  Employee  from '../services/employee'
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Link } from 'react-router-dom'
 const employee = new Employee();
 
 const StyledTableCell = withStyles((theme) => ({
@@ -44,7 +42,7 @@ const tableStyle = {
   elevation: 10
 }
 
-const ListEmployees = () => {
+const ListEmployees = ({handleUpdate}) => {
   let [employees, setEmployees] = useState([]);
   const classes = useStyles();
 
@@ -64,6 +62,16 @@ const ListEmployees = () => {
   useEffect(() => {
     loadEmployees();
   }, []);
+
+  const deleteEmp = (empId) => {
+    employee.deleteEmployee(empId).then(res => {
+        alert("Employee Deleted!!!")
+    }).catch(error => {
+        console.log(error.message);
+    })
+  }
+
+  
 
   return (
     <TableContainer component={Paper} style={tableStyle}>
@@ -92,9 +100,12 @@ const ListEmployees = () => {
               <StyledTableCell >{employee.department}</StyledTableCell>
               
               <StyledTableCell >
-                <Link to='/dashboard/viewEmployee'><VisibilityIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
-                <Link to={`/dashboard/updateEmployee/${employee._id}`}><EditIcon style={{ fill: '#000000' }} /></Link>
-                <Link><DeleteIcon style={{ fill: '#000000' }} /></Link>
+                
+                <EditIcon onClick={() => {
+                      handleUpdate(employee);
+                    }}/>
+                <DeleteIcon onClick={()=>{deleteEmp(employee._id)
+                    }}/>
               </StyledTableCell>
             </StyledTableRow>
           ))}
@@ -103,5 +114,6 @@ const ListEmployees = () => {
     </TableContainer>
   );
 }
+
 
 export default ListEmployees;

@@ -18,6 +18,10 @@ class Employee {
   getEmployees = () => {
     return Axios.get(`/getEmployees`, header);
   };
+
+  deleteEmployee = (empId) => {
+    return Axios.delete(`/deleteEmployee/${empId}`, header);
+  };
 };
 
 export default Employee;

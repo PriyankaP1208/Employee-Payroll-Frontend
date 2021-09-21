@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import {Avatar, Button, Grid, Paper, TextField, Typography} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from 'yup';
 import '../login/login.scss';
@@ -38,16 +39,17 @@ const Login=()=>{
             if (res.data.success === true) {
                 localStorage.setItem("token", res.data.token);
                 setTimeout(() => {
-                    alert(res.data.message);
+                    //toast.success(res.data.message);
                     history.push("/dashboard");
-                  }, 1000);
+                  }, 2000);
+                  toast.success(res.data.message);
             } 
             else {
-                alert("Invalid credentials...!");
+                toast.error("Invalid credentials...!");
             }
         })
         .catch((error) => {
-            alert("Invalid Username or Password");
+            toast.error("Invalid Username or Password");
         });
         props.resetForm();
     }
@@ -79,6 +81,16 @@ const Login=()=>{
                                     Do you have an account?
                                     <Link to='/register' onClick={handleRegister}> Create Account</Link>
                                 </Typography>
+                                <ToastContainer
+                                    autoClose={2000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover 
+                                />
                             </Form>
                         )}
                     </Formik> 

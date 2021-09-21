@@ -1,4 +1,5 @@
-import React from 'react';
+//import React from 'react';
+import React, { useState, useEffect } from "react";
 import clsx from 'clsx';
 import { makeStyles} from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,8 +17,8 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 //import ViewListIcon from "@material-ui/icons/ViewList";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
+// import EditIcon from "@material-ui/icons/Edit";
+// import DeleteIcon from "@material-ui/icons/Delete";
 import { Button } from '@material-ui/core';
 import {BrowserRouter as Router} from 'react-router-dom'
 import Container from '@material-ui/core/Container';
@@ -25,7 +26,8 @@ import Dialog from "@material-ui/core/Dialog";
 import Grid from '@material-ui/core/Grid';
 import AddEmployee from "../components/addEmployee";
 import ListEmployee from '../components/employeeList';
-
+import  Employee  from "../services/employee";
+const employee = new Employee();
 const drawerWidth = 240;
 
 const useStyles = makeStyles((content) => ({
@@ -108,22 +110,38 @@ const useStyles = makeStyles((content) => ({
         },
     }));
   
-    function Dashboard() {
+    export default function Dashboard(){
         const classes = useStyles();
         const [open, setOpen] = React.useState(false);
         const [openAdd, setOpenAdd] = React.useState(false);
-        //const [openUpdate, setOpenUpdate] = React.useState(false);
+        
         //const [setOpenList] = React.useState(false);
+        const [employees, setEmployees] = useState([]);
+
+        const getAllEmployees = () => {
+            employee
+              .getEmployees()
+              .then((res) => {
+                setEmployees(res.data);
+              })
+              .catch((error) => {
+                alert("Some error occured...!");
+              });
+          };
+
         const handleClickOpen = () => {
           setOpenAdd(true);
         };
+
+        useEffect(() => {
+            getAllEmployees();
+          }, []);
+
         const handleClose = () => {
           setOpenAdd(false);
-          //setOpenUpdate(false);
+    
         };
-        // const handleList = () => {
-        //   setOpenList(true);
-        // };
+
         const handleDrawerOpen = () => {
           setOpen(true);
         };
@@ -167,32 +185,34 @@ const useStyles = makeStyles((content) => ({
             </div>
             <Divider />
                 <List>
-                    {/* <ListItem button key="List" data-testid="list" to="/dashboard/ListEmployees">
                     
-                        <ListItemText primary="List" />
-                    </ListItem>  */}
                     <ListItem button key="Add" onClick={handleClickOpen} data-testid="add" >
                         <ListItemIcon>{<PersonAddIcon/>}</ListItemIcon>
                         <ListItemText primary="Add" />
                     </ListItem>
-                    <ListItem button key="Edit" data-testid="edit">
+                    </List>
+                    </Drawer>
+                    <Dialog open={openAdd} onClose={handleClose} margin="auto">
+                        <AddEmployee handleClose={handleClose}/>
+                    </Dialog> 
+                    
+                    {/* <ListItem button key="Edit" data-testid="edit">
                         <ListItemIcon>{<EditIcon/>}</ListItemIcon>
                         <ListItemText primary="Edit" />
                     </ListItem>
                     <ListItem button key="Delete" data-testid="delete">
                         <ListItemIcon>{<DeleteIcon/>}</ListItemIcon>
                         <ListItemText primary="Delete" />
-                    </ListItem>
-                </List>
-        </Drawer>
-        <Dialog open={openAdd} onClose={handleClose} margin="auto">
-              <AddEmployee handleClose={handleClose}/>
-        </Dialog>        
+                    </ListItem> */}
+                
+               
         <main className={classes.content}>
             <div className={classes.appBarSpacer} />
                 <Container  className={classes.container}>
                     <Grid container>
-                        <ListEmployee />
+                        <ListEmployee 
+                        employees={employees}
+                        />
                     </Grid>
                 </Container>
         </main>
@@ -200,5 +220,3 @@ const useStyles = makeStyles((content) => ({
       </Router>
     );
   }
-
-  export default Dashboard;
