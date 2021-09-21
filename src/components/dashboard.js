@@ -129,6 +129,19 @@ const useStyles = makeStyles((content) => ({
               });
           };
 
+          const deleteEmp = (empId) => {
+            if (window.confirm("Are you sure to delete this employee?")) {
+              employee
+                .deleteEmployee(empId)
+                .then((res) => {
+                  getAllEmployees();
+                })
+                .catch((error) => {
+                  console.log(error.message);
+                });
+            }
+          };
+
         const handleClickOpen = () => {
           setOpenAdd(true);
         };
@@ -139,6 +152,7 @@ const useStyles = makeStyles((content) => ({
 
         const handleClose = () => {
           setOpenAdd(false);
+          getAllEmployees();
     
         };
 
@@ -212,6 +226,7 @@ const useStyles = makeStyles((content) => ({
                     <Grid container>
                         <ListEmployee 
                         employees={employees}
+                        deleteEmp={deleteEmp}
                         />
                     </Grid>
                 </Container>

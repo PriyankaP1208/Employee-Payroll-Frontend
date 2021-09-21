@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import Employee from '../services/employee';
 const employee = new Employee();
 
-const AddEmployee=()=>{
+const AddEmployee=({handleClose})=>{
     const paperstyle = {padding:'30px 20px', width:300}
     const avatarStyle= {backgroundColor:'#99db49'}
     const headerStyle = {margin:0}
@@ -73,8 +73,8 @@ const AddEmployee=()=>{
                                 helperText={<ErrorMessage name="salary">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Field as={TextField} name='department' fullWidth label='Department'   
                                 helperText={<ErrorMessage name="department">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Button data-testid='button' fullWidth type="submit" variant="contained" color="primary" style={btnStyle}>
-                               Submit
+                            <Button data-testid='button' fullWidth type="submit" variant="contained" color="primary" style={btnStyle} onClick={handleClose}>
+                               SUBMIT
                             </Button>
                             <ToastContainer
                                 position='top-center'
