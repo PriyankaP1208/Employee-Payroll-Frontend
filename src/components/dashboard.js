@@ -26,6 +26,7 @@ import Dialog from "@material-ui/core/Dialog";
 import Grid from '@material-ui/core/Grid';
 import AddEmployee from "../components/addEmployee";
 import ListEmployee from '../components/employeeList';
+import UpdateEmployee from "../components/updateEmployee";
 import  Employee  from "../services/employee";
 const employee = new Employee();
 const drawerWidth = 240;
@@ -114,6 +115,8 @@ const useStyles = makeStyles((content) => ({
         const classes = useStyles();
         const [open, setOpen] = React.useState(false);
         const [openAdd, setOpenAdd] = React.useState(false);
+        const [openUpdate, setOpenUpdate] = React.useState(false);
+        const [emp, setEmp] = React.useState({});
         
         //const [setOpenList] = React.useState(false);
         const [employees, setEmployees] = useState([]);
@@ -130,7 +133,6 @@ const useStyles = makeStyles((content) => ({
           };
 
           const deleteEmp = (empId) => {
-            if (window.confirm("Are you sure to delete this employee?")) {
               employee
                 .deleteEmployee(empId)
                 .then((res) => {
@@ -139,7 +141,6 @@ const useStyles = makeStyles((content) => ({
                 .catch((error) => {
                   console.log(error.message);
                 });
-            }
           };
 
         const handleClickOpen = () => {
@@ -153,15 +154,21 @@ const useStyles = makeStyles((content) => ({
         const handleClose = () => {
           setOpenAdd(false);
           getAllEmployees();
-    
+          setOpenUpdate(false);
         };
 
         const handleDrawerOpen = () => {
           setOpen(true);
         };
+
         const handleDrawerClose = () => {
           setOpen(false);
         };
+
+        const handleUpdate = (emp) => {
+            setEmp(emp);
+            setOpenUpdate(true);
+          };
 
     return (
         <Router>
@@ -209,16 +216,9 @@ const useStyles = makeStyles((content) => ({
                     <Dialog open={openAdd} onClose={handleClose} margin="auto">
                         <AddEmployee handleClose={handleClose}/>
                     </Dialog> 
-                    
-                    {/* <ListItem button key="Edit" data-testid="edit">
-                        <ListItemIcon>{<EditIcon/>}</ListItemIcon>
-                        <ListItemText primary="Edit" />
-                    </ListItem>
-                    <ListItem button key="Delete" data-testid="delete">
-                        <ListItemIcon>{<DeleteIcon/>}</ListItemIcon>
-                        <ListItemText primary="Delete" />
-                    </ListItem> */}
-                
+                    <Dialog open={openUpdate} onClose={handleClose} margin="auto">
+                        <UpdateEmployee emp={emp} handleClose={handleClose}/>
+                    </Dialog>
                
         <main className={classes.content}>
             <div className={classes.appBarSpacer} />
@@ -227,6 +227,7 @@ const useStyles = makeStyles((content) => ({
                         <ListEmployee 
                         employees={employees}
                         deleteEmp={deleteEmp}
+                        handleUpdate={handleUpdate}
                         />
                     </Grid>
                 </Container>

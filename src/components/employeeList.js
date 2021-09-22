@@ -12,6 +12,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ToastContainer, toast } from "react-toastify";
 import { Grid} from "@material-ui/core";
+//import { Link } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 const employee = new Employee();
 
@@ -45,7 +46,8 @@ const tableStyle = {
   elevation: 10
 }
 
-const ListEmployees = ({handleUpdate}) => {
+export default function ListEmployees({ handleUpdate}) {
+  //const actionStyle = { color: "black", margin: "10px 0px 10px 15px"};
   let [employees, setEmployees] = useState([]);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -65,7 +67,7 @@ const ListEmployees = ({handleUpdate}) => {
 
   useEffect(() => {
     loadEmployees();
-  }, [employees]);
+  }, []);
 
   const deleteEmp = (empId) => {
     employee.deleteEmployee(empId).then(res => {
@@ -107,7 +109,7 @@ const ListEmployees = ({handleUpdate}) => {
                 <StyledTableCell >{employee.department}</StyledTableCell>
                 
                 <StyledTableCell >
-                  <EditIcon onClick={() => {
+                <EditIcon onClick={() => {
                       handleUpdate(employee);
                   }}/>
                   <DeleteIcon onClick={()=>{
@@ -129,6 +131,3 @@ const ListEmployees = ({handleUpdate}) => {
     </Grid>
   );
 }
-
-
-export default ListEmployees;

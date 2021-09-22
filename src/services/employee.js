@@ -22,6 +22,14 @@ class Employee {
   deleteEmployee = (empId) => {
     return Axios.delete(`/deleteEmployee/${empId}`, header);
   };
+
+  getEmployeeById = (empId) => {
+    return Axios.get(`/getById/${empId}`, header);
+  };
+
+  updateEmployee = (empDetails, empId) => {
+    return Axios.put(`/updateById/${empId}`, empDetails, header);
+  };
 };
 
 export default Employee;
