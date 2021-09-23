@@ -69,9 +69,9 @@ const AddEmployee=()=>{
                                 helperText={<ErrorMessage name="emailId">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Field as={TextField} data-testid='gender' name='gender' fullWidth label='Gender' 
                                 helperText={<ErrorMessage name="gender">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Field as={TextField} name='salary' fullWidth label='Salary'   
+                            <Field as={TextField} data-testid='salary' name='salary' fullWidth label='Salary'   
                                 helperText={<ErrorMessage name="salary">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Field as={TextField} name='department' fullWidth label='Department'   
+                            <Field as={TextField} data-testid='department' name='department' fullWidth label='Department'   
                                 helperText={<ErrorMessage name="department">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Button data-testid='button' fullWidth type="submit" variant="contained" color="primary" style={btnStyle}>
                                SUBMIT
