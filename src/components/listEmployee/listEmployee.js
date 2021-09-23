@@ -85,20 +85,20 @@ export default function ListEmployees({ handleUpdate}) {
 
   return (
     <Grid>
-      <TableContainer component={Paper} style={tableStyle}>
-        <Table className={classes.table} aria-label="customized table">
+      <TableContainer data-testid="tableContainer" component={Paper} style={tableStyle}>
+        <Table data-testid="table" className={classes.table} aria-label="customized table">
           <TableHead>
-            <TableRow>
-              <StyledTableCell>First Name</StyledTableCell>
-              <StyledTableCell >Last Name</StyledTableCell>
-              <StyledTableCell >Email</StyledTableCell>
-              <StyledTableCell >Gender</StyledTableCell>
-              <StyledTableCell >Salary</StyledTableCell>
-              <StyledTableCell >Department</StyledTableCell>
-              <StyledTableCell >Actions</StyledTableCell>
+            <TableRow data-testid="tableRowHeader">
+              <StyledTableCell data-testid="firstName">First Name</StyledTableCell>
+              <StyledTableCell data-testid="lastName">Last Name</StyledTableCell>
+              <StyledTableCell data-testid="email">Email</StyledTableCell>
+              <StyledTableCell data-testid="gender">Gender</StyledTableCell>
+              <StyledTableCell data-testid="salary">Salary</StyledTableCell>
+              <StyledTableCell data-testid="department">Department</StyledTableCell>
+              <StyledTableCell data-testid="action">Actions</StyledTableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody data-testid="tableBody">
             {employees.map((employee) => (
               <StyledTableRow >
                 <StyledTableCell component="th" scope="row">
