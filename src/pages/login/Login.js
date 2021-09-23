@@ -51,6 +51,7 @@ const Login=()=>{
             toast.error("Invalid Username or Password");
         });
         props.resetForm();
+        props.setSubmitting(false);
     }
 
     return(

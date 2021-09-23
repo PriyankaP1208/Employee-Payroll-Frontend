@@ -4,22 +4,22 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import { ToastContainer, toast } from "react-toastify";
 import * as Yup from 'yup';
-import Employee from '../services/employee';
+import Employee from '../../services/employee';
 const employee = new Employee();
 
-const updateEmployee=({emp, handleClose})=>{
+const AddEmployee=()=>{
     const paperstyle = {padding:'30px 20px', width:300}
     const avatarStyle= {backgroundColor:'#99db49'}
     const headerStyle = {margin:0}
     const btnStyle = {margin:'15px 0'}
 
     const initialValues={
-        firstName:emp.firstName,
-        lastName:emp.lastName,
-        emailId:emp.emailId,
-        gender:emp.gender,
-        salary:emp.salary,
-        department:emp.department,
+        firstName:'',
+        lastName:'',
+        emailId:'',
+        gender:'',
+        salary:'',
+        department:''
     };
 
     const validationSchema = Yup.object().shape({
@@ -40,9 +40,9 @@ const updateEmployee=({emp, handleClose})=>{
             "salary":values.salary,
             "department":values.department
         }
-        employee.updateEmployee(employeeDetails, emp._id)    
+        employee.addEmployee(employeeDetails)    
         .then((res) => {
-            toast.success("Employee Updated successfully!");
+            toast.success(res.data.message);
         })
         .catch((error) => {
             toast.error(error);
@@ -55,11 +55,11 @@ const updateEmployee=({emp, handleClose})=>{
                 <Grid align='center'>
                     <Avatar data-testid='avatar' style={avatarStyle}><PersonAddIcon/></Avatar>
                     <h2 style={headerStyle} data-testid="register">
-                        Update Employee
+                        Add Employee
                     </h2>
                 </Grid>
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                    {(props)=>( 
+                    {()=>( 
                         <Form data-testid='form'>
                             <Field as={TextField} data-testid='firstName' name='firstName' fullWidth label='First Name' 
                                 helperText={<ErrorMessage name="firstName">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
@@ -73,18 +73,18 @@ const updateEmployee=({emp, handleClose})=>{
                                 helperText={<ErrorMessage name="salary">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Field as={TextField} name='department' fullWidth label='Department'   
                                 helperText={<ErrorMessage name="department">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Button data-testid='button' fullWidth type="submit" variant="contained" color="primary" style={btnStyle} onClick={handleClose}>
-                               Update
+                            <Button data-testid='button' fullWidth type="submit" variant="contained" color="primary" style={btnStyle}>
+                               SUBMIT
                             </Button>
                         </Form>
                     )}
                 </Formik>
-                <ToastContainer
-                    position='top-center'
-                />
             </Paper>
+            <ToastContainer
+                position='top-center'
+            />
         </Grid>
     )
 }
 
-export default updateEmployee;
+export default AddEmployee;

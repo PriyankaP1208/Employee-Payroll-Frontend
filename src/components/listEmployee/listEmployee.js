@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import  Employee  from '../services/employee'
+import  Employee  from '../../services/employee'
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ToastContainer, toast } from "react-toastify";
@@ -72,9 +72,11 @@ export default function ListEmployees({ handleUpdate}) {
   const deleteEmp = (empId) => {
     employee.deleteEmployee(empId).then(res => {
         toast.success("Employee Deleted!")
+        loadEmployees();
     }).catch(error => {
         toast.error(error.message);
     })
+    
   }
 
   const handleClose = () => {

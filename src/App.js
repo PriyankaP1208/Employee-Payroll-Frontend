@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import LogIn from './pages/login/Login.js';
 import SignUp from './pages/register/Register.js';
-import Dashboard from './components/dashboard';
+import Dashboard from './pages/dashboard/dashboard';
 import { Router } from '@material-ui/icons';
 
 function App() {

@@ -1,5 +1,5 @@
 import { shallow} from "enzyme";
-import Register from '../pages/register/Register';
+import Register from './Register';
 import React from 'react';
 import { render } from "@testing-library/react";
 import '@testing-library/jest-dom';
