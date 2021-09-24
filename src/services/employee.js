@@ -2,17 +2,17 @@ import Axios from "axios";
 require("dotenv").config();
 let token = localStorage.getItem("token");
 
+Axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+
 const header = {
   headers: {
     token: token,
   },
 };
 
-Axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
-
-class Employee {
-  addEmployee = (employeeDetails) => {
-    return Axios.post(`/addEmployee`, employeeDetails, header);
+export class Employee {
+  addEmployee = (empDetails) => {
+    return Axios.post(`/addEmployee`, empDetails, header);
   };
 
   getEmployees = () => {
@@ -23,13 +23,11 @@ class Employee {
     return Axios.delete(`/deleteEmployee/${empId}`, header);
   };
 
-  getEmployeeById = (empId) => {
-    return Axios.get(`/getById/${empId}`, header);
-  };
+  // getEmployeeById = (empId) => {
+  //   return Axios.get(`/getById/${empId}`, header);
+  // };
 
   updateEmployee = (empDetails, empId) => {
     return Axios.put(`/updateById/${empId}`, empDetails, header);
   };
-};
-
-export default Employee;
+}

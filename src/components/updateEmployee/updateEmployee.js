@@ -4,10 +4,10 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import { ToastContainer, toast } from "react-toastify";
 import * as Yup from 'yup';
-import Employee from '../../services/employee';
+import {Employee} from '../../services/employee';
 const employee = new Employee();
 
-const updateEmployee=({emp})=>{
+const updateEmployee=({emp, handleClose})=>{
     const paperstyle = {padding:'30px 20px', width:300}
     const avatarStyle= {backgroundColor:'#99db49'}
     const headerStyle = {margin:0}
@@ -43,6 +43,7 @@ const updateEmployee=({emp})=>{
         employee.updateEmployee(employeeDetails, emp._id)    
         .then((res) => {
             toast.success("Employee Updated successfully!");
+            handleClose();
         })
         .catch((error) => {
             toast.error(error);

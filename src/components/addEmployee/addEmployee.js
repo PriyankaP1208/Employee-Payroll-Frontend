@@ -4,10 +4,11 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import { ToastContainer, toast } from "react-toastify";
 import * as Yup from 'yup';
-import Employee from '../../services/employee';
+import {Employee} from '../../services/employee';
 const employee = new Employee();
 
-const AddEmployee=()=>{
+const AddEmployee=({handleClose})=>{
+
     const paperstyle = {padding:'30px 20px', width:300}
     const avatarStyle= {backgroundColor:'#99db49'}
     const headerStyle = {margin:0}
@@ -42,13 +43,15 @@ const AddEmployee=()=>{
         }
         employee.addEmployee(employeeDetails)    
         .then((res) => {
-            toast.success(res.data.message);
+            toast.success("Employee Added");
+            handleClose();
         })
         .catch((error) => {
             toast.error(error);
         });
         props.resetForm();
     }
+
     return(
         <Grid >
             <Paper elevation={20} style={paperstyle}>
@@ -73,7 +76,7 @@ const AddEmployee=()=>{
                                 helperText={<ErrorMessage name="salary">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Field as={TextField} data-testid='department' name='department' fullWidth label='Department'   
                                 helperText={<ErrorMessage name="department">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Button data-testid='button' fullWidth type="submit" variant="contained" color="primary" style={btnStyle}>
+                            <Button data-testid='button' fullWidth type="submit" variant="contained" color="primary" style={btnStyle} >
                                SUBMIT
                             </Button>
                         </Form>
