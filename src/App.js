@@ -10,12 +10,14 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+
         <Switch>
           <Route exact path="/login" component={LogIn}/>
           <Route path="/register" component={SignUp}/>
           <ProtectedRoute path="/dashboard" component={Dashboard}/>
           <Route component={ErrorPage} />
         </Switch>
+        
       </div>
     </BrowserRouter>
   );
