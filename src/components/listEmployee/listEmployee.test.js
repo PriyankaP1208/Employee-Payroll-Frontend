@@ -1,16 +1,16 @@
-//import { shallow} from "enzyme";
-import ListEmployees from '../listEmployee/listEmployee';
 import React from 'react';
 import { render } from "@testing-library/react";
 import '@testing-library/jest-dom';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16'
-Enzyme.configure({ adapter: new Adapter() })
+import List from "./listEmployee";
+
+let getByTestId;
+  beforeEach(() => {
+    ({ getByTestId } = render(<List employees={[]} />));
+});
 
 describe("Test For Employee Details Table", () => {
     
     it("should contain proper components when listEmployee page rendered", () => {
-        const { getByTestId } = render(<ListEmployees />);
         const tableContainer = getByTestId("tableContainer");
         const table = getByTestId("table");
         const tableRowHeader = getByTestId("tableRowHeader");
@@ -23,7 +23,6 @@ describe("Test For Employee Details Table", () => {
     });
 
     it("check if Row elements displays properly", () => {
-        const { getByTestId } = render(<ListEmployees />);
         const firstName = getByTestId("firstName");
         const lastName = getByTestId("lastName");
         const email = getByTestId("email");
@@ -40,7 +39,6 @@ describe("Test For Employee Details Table", () => {
     });
   
     it("check if text content has correct value", () => {
-        const { getByTestId } = render(<ListEmployees />);
         const firstName = getByTestId("firstName");
         const lastName = getByTestId("lastName");
         const email = getByTestId("email");

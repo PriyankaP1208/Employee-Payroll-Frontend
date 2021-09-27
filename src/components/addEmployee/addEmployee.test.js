@@ -1,27 +1,25 @@
-import { shallow} from "enzyme";
 import AddEmployee from '../addEmployee/addEmployee';
 import React from 'react';
 import { render } from "@testing-library/react";
 import '@testing-library/jest-dom';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16'
-Enzyme.configure({ adapter: new Adapter() })
+
+let getByTestId;
+beforeEach(() => {
+  ({ getByTestId } = render(<AddEmployee />));
+});
 
 describe("Headers Tag test", () => {
-    const component = shallow(<AddEmployee />);
-    
-    it("should contain proper header when addEmployee page rendered", () => {
-        expect(component.find("h2").text()).toContain("Add Employee");
-    });
+  it("should contain proper header when addEmployee page rendered", () => {
+    expect(getByTestId("add")).toHaveTextContent("Add Employee");
+  });
 
-    it("should contain wrong header when addEmployee is not rendered", () => {
-        expect(component.find("h2").text()).not.toContain("AddEmployee");
-    });
+  it("should contain wrong header when addEmployee is not rendered", () => {
+    expect(getByTestId("add")).not.toHaveTextContent("AddEmployee");
+  });
 });
 
 describe("Add Employee Form test", () => {
     it("check if form components displays properly", () => {
-      const { getByTestId } = render(<AddEmployee />);
       const form = getByTestId("form");
       const firstName = getByTestId("firstName");
       const lastName = getByTestId("lastName");
@@ -42,7 +40,6 @@ describe("Add Employee Form test", () => {
     });
   
     it("check if form components has correct value", () => {
-      const { getByTestId } = render(<AddEmployee />);
       const firstName = getByTestId("firstName");
       const lastName = getByTestId("lastName");
       const email = getByTestId("email");
@@ -59,4 +56,4 @@ describe("Add Employee Form test", () => {
       expect(department).toHaveTextContent("Department");
       expect(button).toHaveTextContent("SUBMIT");
     });
-  });
+});

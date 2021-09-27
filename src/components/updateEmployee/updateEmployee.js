@@ -14,12 +14,12 @@ const updateEmployee=({emp, handleClose})=>{
     const btnStyle = {margin:'15px 0'}
 
     const initialValues={
-        firstName:emp.firstName,
-        lastName:emp.lastName,
-        emailId:emp.emailId,
-        gender:emp.gender,
-        salary:emp.salary,
-        department:emp.department,
+        firstName:emp && emp.firstName,
+        lastName:emp && emp.lastName,
+        emailId:emp && emp.emailId,
+        gender:emp && emp.gender,
+        salary:emp && emp.salary,
+        department:emp && emp.department,
     };
 
     const validationSchema = Yup.object().shape({
@@ -47,7 +47,7 @@ const updateEmployee=({emp, handleClose})=>{
             <Paper elevation={20} style={paperstyle}>
                 <Grid align='center'>
                     <Avatar data-testid='avatar' style={avatarStyle}><PersonAddIcon/></Avatar>
-                    <h2 style={headerStyle} data-testid="register">
+                    <h2 style={headerStyle} data-testid="update">
                         Update Employee
                     </h2>
                 </Grid>
@@ -62,9 +62,9 @@ const updateEmployee=({emp, handleClose})=>{
                                 helperText={<ErrorMessage name="emailId">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Field as={TextField} data-testid='gender' name='gender' fullWidth label='Gender' 
                                 helperText={<ErrorMessage name="gender">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Field as={TextField} name='salary' fullWidth label='Salary'   
+                            <Field as={TextField} data-testid="salary" name='salary' fullWidth label='Salary'   
                                 helperText={<ErrorMessage name="salary">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
-                            <Field as={TextField} name='department' fullWidth label='Department'   
+                            <Field as={TextField} data-testid="department" name='department' fullWidth label='Department'   
                                 helperText={<ErrorMessage name="department">{msg => <div style={{color:'red'}}>{msg}</div>}</ErrorMessage >}/>
                             <Button data-testid='button' fullWidth type="submit" variant="contained" color="primary" style={btnStyle}>
                                Update

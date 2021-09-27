@@ -49,7 +49,7 @@ const AddEmployee=({handleClose})=>{
             <Paper elevation={20} style={paperstyle}>
                 <Grid align='center'>
                     <Avatar data-testid='avatar' style={avatarStyle}><PersonAddIcon/></Avatar>
-                    <h2 style={headerStyle} data-testid="register">
+                    <h2 style={headerStyle} data-testid="add">
                         Add Employee
                     </h2>
                 </Grid>
