@@ -29,12 +29,7 @@ const Login=()=>{
       };
 
     const onSubmit=(values, props)=>{
-        const loginDetails = {
-            'emailId':values.emailId,
-            'password':values.password
-        }
-
-        user.login(loginDetails)
+        user.login(values)
         .then((res) => {
             if (res.data.success === true) {
                 localStorage.setItem("token", res.data.token);

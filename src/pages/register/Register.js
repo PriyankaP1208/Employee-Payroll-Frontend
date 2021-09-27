@@ -38,14 +38,7 @@ const SignUp=()=>{
       };
 
     const onSubmit = (values, props) => {
-        const userDetails = {
-            "firstName": values.firstName,
-            "lastName": values.lastName,
-            "emailId": values.emailId,
-            "password": values.password,
-        }
-
-        userObject.register(userDetails)    
+        userObject.register(values)    
         .then((res) => {
             if (res.data.success === true) {
                 toast.success(res.data.message);

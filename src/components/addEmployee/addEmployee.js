@@ -33,15 +33,7 @@ const AddEmployee=({handleClose})=>{
     });
 
     const onSubmit = (values, props) => {
-        const employeeDetails = {
-            "firstName": values.firstName,
-            "lastName": values.lastName,
-            "emailId": values.emailId,
-            "gender": values.gender,
-            "salary":values.salary,
-            "department":values.department
-        }
-        employee.addEmployee(employeeDetails)    
+        employee.addEmployee(values)    
         .then((res) => {
             toast.success("Employee Added");
             handleClose();

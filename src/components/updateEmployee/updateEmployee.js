@@ -32,15 +32,7 @@ const updateEmployee=({emp, handleClose})=>{
     });
 
     const onSubmit = (values, props) => {
-        const employeeDetails = {
-            "firstName": values.firstName,
-            "lastName": values.lastName,
-            "emailId": values.emailId,
-            "gender": values.gender,
-            "salary":values.salary,
-            "department":values.department
-        }
-        employee.updateEmployee(employeeDetails, emp._id)    
+        employee.updateEmployee(values, emp._id)    
         .then((res) => {
             toast.success("Employee Updated successfully!");
             handleClose();
